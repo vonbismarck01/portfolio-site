@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio Personalizado</title>
+    <style>
+        /* ===== VARIÁVEIS E RESET ===== */
+        :root {
+            --primary-color: #2e8b57;
+            --secondary-color: #4CAF50;
+            --accent-color: #228b22;
+            --text-color: #333;
+            --light-bg: rgba(255, 255, 255, 0.95);
+            --dark-bg: rgba(0, 0, 0, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== LAYOUT PRINCIPAL ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 40px 0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            background: var(--dark-bg);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu li:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 80px 20px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .slime-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ff88, #00ccff, #ff00cc);
+            opacity: 0.3;
+            filter: blur(25px);
+            animation: slime 8s linear infinite;
+            z-index: 1;
+        }
+
+        .intro h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, white, var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        /* ===== BLOG SECTION ===== */
+        .blog-content {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            color: var(--text-color);
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-cover {
+            width: 180px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: block;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== SKILLS SECTION ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skill {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            color: var(--text-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* ===== CERTIFICATES SECTION ===== */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .certificate {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            color: var(--text-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .certificate:hover {
+            transform: translateY(-8px);
+        }
+
+        .certificate img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== PROJECTS SECTION ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project {
+            aspect-ratio: 1;
+            background: var(--light-bg);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark-bg);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: white;
+            color: var(--secondary-color);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slime {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            33% { transform: translate(-50%, -50%) scale(1.1) rotate(120deg); }
+            66% { transform: translate(-50%, -50%) scale(0.9) rotate(240deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--dark-bg);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active { left: 0; }
+
+            .menu-toggle { display: flex; }
+
+            .intro h1 { font-size: 2.2rem; }
+            .profile-photo { width: 200px; height: 200px; }
+            .slime-effect { width: 250px; height: 250px; }
+            .section { padding: 60px 0; margin: 20px 0; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .intro h1 { font-size: 1.8rem; }
+            .section-title { font-size: 2rem; }
+            .profile-photo { width: 160px; height: 160px; }
+            .slime-effect { width: 200px; height: 200px; }
+            .social-links { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">MeuPortfólio</div>
+            <ul class="nav-menu">
+                <li>Home</li>
+                <li>Blog</li>
+                <li>Habilidades</li>
+                <li>Certificados</li>
+                <li>Projetos</li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="photo-container">
+            <div class="slime-effect"></div>
+            <img src="img/64a29bab-362e-4d1a-90ec-b8a234f7b491.jpg" alt="Sua Foto" class="profile-photo">
+        </div>
+        <div class="intro">
+            <h1>Olá eu sou Bismarck</h1>
+            <p>Desenvolvedor Full Stack & historiador</p>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Blog Literário</h2>
+            <div class="blog-content">
+                <h3>Livro da Semana: Apologia a historia</h3>
+                <img src="img/apologia.jpg" alt="Capa do Livro" class="book-cover">
+                <p>Apologia da História ou o Ofício do Historiador", de Marc Bloch, é um livro inacabado que reflete sobre a ciência da história, o método e o papel do historiador. Escrito durante a Segunda Guerra Mundial e publicado postumamente, a obra parte da pergunta "para que serve a história?". Bloch defende que a história estuda o homem no tempo, destacando a importância da análise das causas dos fatos históricos, a crítica das fontes e a necessidade de o historiador dialogar com o público. </p>
+                <p>Recomendo para todos que buscam significado e propósito na vida!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Minhas Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill">
+                    <div class="skill-header"><span>HTML/CSS</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="skill-header"><span>JavaScript</span><span>88%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 88%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="skill-header"><span>React</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="skill-header"><span>Node.js</span><span>82%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 82%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Certificados</h2>
+            <div class="certificates-grid">
+                <div class="certificate">
+                    <img src="images/certificates/certificado-1.jpg" alt="Certificado Fullstack">
+                    <h3>Desenvolvimento Web Fullstack</h3>
+                    <p>2023 - 120 horas</p>
+                </div>
+                <div class="certificate">
+                    <img src="images/certificates/certificado-2.jpg" alt="Certificado React">
+                    <h3>React Avançado</h3>
+                    <p>2023 - 80 horas</p>
+                </div>
+                <div class="certificate">
+                    <img src="images/certificates/certificado-3.jpg" alt="Certificado Node">
+                    <h3>Node.js & Express</h3>
+                    <p>2023 - 60 horas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Meus Projetos</h2>
+            <div class="projects-grid">
+                <a href="#" class="project">E-commerce React</a>
+                <a href="#" class="project">App de Tarefas</a>
+                <a href="#" class="project">Blog Pessoal</a>
+                <a href="#" class="project">API Restful</a>
+                <a href="#" class="project">Dashboard Analytics</a>
+                <a href="#" class="project">App Mobile</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">💼</a>
+            </div>
+            <a href="https://wa.me/5583996337631" class="whatsapp-btn" target="_blank">💬 Conversar no WhatsApp</a>
+            <div class="copyright">
+                <p>GitHub | Instagram | LinkedIn</p>
+                <p>&copy; 2024 Meu Portfólio. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar
+        document.querySelectorAll('.nav-menu li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+
+        // Animar barras de habilidades
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill').forEach(skill => {
+            observer.observe(skill);
+        });
+    </script>
+</body>
+</html>
